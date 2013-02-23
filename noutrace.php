@@ -7,14 +7,14 @@
   </head>
   <body>
 
-    <?
+    <?php
     require 'noutrace.class.php';
     $xdb = new noutrace();
     $xdb->setParams();
     ?>
 
     <h1>Xdebug Trace File Parser</h1>
-    <h2>Settings <?= $xdb->logDirectory ?> (<?= $xdb->traceFormat ?>)</h2>
+    <h2>Settings <?php echo $xdb->logDirectory ?> (<?php echo $xdb->traceFormat ?>)</h2>
     <form method="get" action="noutrace.php">
       <label>File
         <select name="file">
@@ -22,10 +22,10 @@
           <?php echo $xdb->rtvFiles(); ?>
         </select>
       </label>
-      <label>Filter only one instruction <input type="text" name="onlyOneInstruction" value="<?= $xdb->onlyOneInstruction ?>"  size="40"/> </label>
-      <label>Filter by script file <input type="text" name="onlyOneScript" value="<?= $xdb->onlyOneScript ?>"  size="40"/> </label>
-<!--      <label>If the memory jumps <input type="text" name="memory" value="<?= $xdb->memoryAlarm ?>" style="text-align:right" size="5"/> MB, provide an alert</label>
-      <label>If the execution time jumps <input type="text" name="time" value="<?= $xdb->timeAlarm ?>" style="text-align:right" size="5"/> seconds, provide an alert</label>-->
+      <label>Filter only one instruction <input type="text" name="onlyOneInstruction" value="<?php echo $xdb->onlyOneInstruction ?>"  size="40"/> </label>
+      <label>Filter by script file <input type="text" name="onlyOneScript" value="<?php echo $xdb->onlyOneScript ?>"  size="40"/> </label>
+<!--      <label>If the memory jumps <input type="text" name="memory" value="<?php echo $xdb->memoryAlarm ?>" style="text-align:right" size="5"/> MB, provide an alert</label>
+      <label>If the execution time jumps <input type="text" name="time" value="<?php echo $xdb->timeAlarm ?>" style="text-align:right" size="5"/> seconds, provide an alert</label>-->
 
       <input type="submit" value="parse" />
 

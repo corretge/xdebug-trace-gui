@@ -8,7 +8,7 @@
   </head>
   <body>
 
-    <?
+    <?php
     @session_start();
     require 'graph.class.php';
     $xdb = new graph();
@@ -16,7 +16,7 @@
     ?>
 
     <h1>Xdebug Trace File Statistics</h1>
-    <h2>Settings <?= $xdb->logDirectory ?> (<?= $xdb->traceFormat ?>)</h2>
+    <h2>Settings <?php echo $xdb->logDirectory ?> (<?php echo $xdb->traceFormat ?>)</h2>
     <form method="get" action="graph.php">
       <label>File
         <select name="file">
