@@ -13,7 +13,7 @@ require 'trace.config.php';
     </head>
     <body>
         <h1>Xdebug Trace File Parser</h1>
-        <h2>Settings <?= $config['directory'] ?></h2>
+        <h2>Settings <?php echo $config['directory'] ?></h2>
         <form method="get" action="trace.php">
             <label>File
                 <select name="file">
@@ -42,8 +42,8 @@ require 'trace.config.php';
                 </select>
             </label>
 
-            <label>If the memory jumps <input type="text" name="memory" value="<?= XDEBUG_TRACE_GUI_MEMORY_TRIGGER ?>" style="text-align:right" size="5"/> MB, provide an alert</label>
-            <label>If the execution time jumps <input type="text" name="time" value="<?= XDEBUG_TRACE_GUI_TIME_TRIGGER ?>" style="text-align:right" size="5"/> seconds, provide an alert</label>
+            <label>If the memory jumps <input type="text" name="memory" value="<?php echo XDEBUG_TRACE_GUI_MEMORY_TRIGGER ?>" style="text-align:right" size="5"/> MB, provide an alert</label>
+            <label>If the execution time jumps <input type="text" name="time" value="<?php echo XDEBUG_TRACE_GUI_TIME_TRIGGER ?>" style="text-align:right" size="5"/> seconds, provide an alert</label>
 
             <input type="submit" value="parse" />
 
@@ -266,9 +266,9 @@ require 'trace.config.php';
             <table>
                 <tr>
                     <td>
-                        <?= $traceFile; ?><br />
-                        <strong><?= count($fullTrace); ?></strong> function calls in <strong><?php $l = end($fullTrace);
-                    echo $l['timeOnEntry']; ?> seconds</strong>, using <strong><?= $l['memoryOnEntry'] ?> MB</strong> of memory.
+                        <?php echo $traceFile; ?><br />
+                        <strong><?php echo count($fullTrace); ?></strong> function calls in <strong><?php $l = end($fullTrace);
+                    echo $l['timeOnEntry']; ?> seconds</strong>, using <strong><?php echo $l['memoryOnEntry'] ?> MB</strong> of memory.
                     </td>
                     <td></td>
                     <td style="vertical-align:bottom"><small>in = start func.<br />out = end func.</small></td>
@@ -304,7 +304,7 @@ require 'trace.config.php';
             }
                     ?>px">
                             <?php if (isset($trace['type']) and $trace['type'] == 0)
-                            { ?><a target="_blank" href="http://php.net/<?= $trace['function'] ?>"><span class="native" title="PHP doc <?= $trace['function'] ?>">&#x261b; </span></a><?php
+                            { ?><a target="_blank" href="http://php.net/<?php echo $trace['function'] ?>"><span class="native" title="PHP doc <?php echo $trace['function'] ?>">&#x261b; </span></a><?php
                 }
                 else
                 {
@@ -329,9 +329,9 @@ require 'trace.config.php';
                     {
                         $userFunction = 'user';
                     }
-                                ?><span class="<?= $userFunction ?>" title="UDF ">&#x261b; </span><?php } ?><strong><?php if (isset($trace['type']) and $trace['type'] == 0)
-                    { ?>\<?php } ?><?= @$trace['function'] ?></strong><ul><?= @$trace['valParms'] ?></ul><br />
-                            <small><?= @$trace['filename'] ?></small>
+                                ?><span class="<?php echo $userFunction ?>" title="UDF ">&#x261b; </span><?php } ?><strong><?php if (isset($trace['type']) and $trace['type'] == 0)
+                    { ?>\<?php } ?><?php echo @$trace['function'] ?></strong><ul><?php echo @$trace['valParms'] ?></ul><br />
+                            <small><?php echo @$trace['filename'] ?></small>
                             <span class="warning">
                                 <?php
                                 if (isset($trace['timeAlert']) and $trace['timeAlert'])
@@ -355,7 +355,7 @@ require 'trace.config.php';
                             ?>
                         </td>
                         <td class="digit" style="<?php if (isset($trace['timeAlert']) and $trace['timeAlert'])
-                    { ?>background:maroon;color:white<?php } ?>">in: <?= @$trace['timeOnEntry'] ?> s<br />out: <?= @$trace['timeOnExit'] ?> <br />
+                    { ?>background:maroon;color:white<?php } ?>">in: <?php echo @$trace['timeOnEntry'] ?> s<br />out: <?php echo @$trace['timeOnExit'] ?> <br />
                             <?php
                             if (isset($trace['timeOnEntry']) and isset($trace['timeOnExit']))
                             {
@@ -368,7 +368,7 @@ require 'trace.config.php';
                             }
                             ?></td>
                         <td class="digit" style="<?php if (isset($trace['memoryAlert']) and $trace['memoryAlert'])
-                    { ?>background:maroon;color:white<?php } ?>">in: <?= @$trace['memoryOnEntry'] ?> MB<br />out: <?= @$trace['memoryOnExit'] ?> MB<br />
+                    { ?>background:maroon;color:white<?php } ?>">in: <?php echo @$trace['memoryOnEntry'] ?> MB<br />out: <?php echo @$trace['memoryOnExit'] ?> MB<br />
 
 
                             <?php
