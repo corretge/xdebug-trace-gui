@@ -378,6 +378,7 @@ class noutrace
 
             for ($jI = 11; $jI <= 10 + $jData[10]; $jI++)
             {
+              $jData[$jI]=str_replace('<!--', '&lt;!--', $jData[$jI]); //The Fix for situation: if appeared tag "<!--" in the values of variables then it comments out the remains of result output. That was unexpected.
               echo "<li class=\"parm\">{$jData[$jI]}</li>";
             }
             echo "</ul>";
