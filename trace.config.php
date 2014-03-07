@@ -31,26 +31,26 @@ function aryComp($a, $b)
 function usortByArrayKey(&$array, $key, $asc=SORT_ASC) { 
     $sort_flags = array(SORT_ASC, SORT_DESC); 
     if(!in_array($asc, $sort_flags)) throw new InvalidArgumentException('sort flag only accepts SORT_ASC or SORT_DESC'); 
-    $cmp = function(array $a, array $b) use ($key, $asc, $sort_flags) { 
+    $cmp = create_function('array $a, array $b use $key, $asc, $sort_flags',' 
         if(!is_array($key)) { //just one key and sort direction 
             if(!isset($a[$key]) || !isset($b[$key])) { 
-                throw new Exception('attempting to sort on non-existent keys'); 
+                throw new Exception(\'attempting to sort on non-existent keys\'); 
             } 
             if($a[$key] == $b[$key]) return 0; 
             return ($asc==SORT_ASC xor $a[$key] < $b[$key]) ? 1 : -1; 
         } else { //using multiple keys for sort and sub-sort 
             foreach($key as $sub_key => $sub_asc) { 
-                //array can come as 'sort_key'=>SORT_ASC|SORT_DESC or just 'sort_key', so need to detect which 
+                //array can come as \'sort_key\'=>SORT_ASC|SORT_DESC or just \'sort_key\', so need to detect which 
                 if(!in_array($sub_asc, $sort_flags)) { $sub_key = $sub_asc; $sub_asc = $asc; } 
-                //just like above, except 'continue' in place of return 0 
+                //just like above, except \'continue\' in place of return 0 
                 if(!isset($a[$sub_key]) || !isset($b[$sub_key])) { 
-                    throw new Exception('attempting to sort on non-existent keys'); 
+                    throw new Exception(\'attempting to sort on non-existent keys\'); 
                 } 
                 if($a[$sub_key] == $b[$sub_key]) continue; 
                 return ($sub_asc==SORT_ASC xor $a[$sub_key] < $b[$sub_key]) ? 1 : -1; 
             } 
             return 0; 
         } 
-    }; 
+    ')}; 
     usort($array, $cmp); 
 }
