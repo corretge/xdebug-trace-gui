@@ -74,13 +74,12 @@ class noutrace
     $sort_flags = array(SORT_ASC, SORT_DESC);
     if (!in_array($asc, $sort_flags))
       throw new InvalidArgumentException('sort flag only accepts SORT_ASC or SORT_DESC');
-    $cmp = function(array $a, array $b) use ($key, $asc, $sort_flags)
-      {
+    $cmp = create_function('array $a, array $b use $key, $asc, $sort_flags','
         if (!is_array($key))
         { //just one key and sort direction
           if (!isset($a[$key]) || !isset($b[$key]))
           {
-            throw new Exception('attempting to sort on non-existent keys');
+            throw new Exception(\'attempting to sort on non-existent keys\');
           }
           if ($a[$key] == $b[$key])
             return 0;
@@ -89,16 +88,16 @@ class noutrace
         { //using multiple keys for sort and sub-sort
           foreach ($key as $sub_key => $sub_asc)
           {
-            //array can come as 'sort_key'=>SORT_ASC|SORT_DESC or just 'sort_key', so need to detect which
+            //array can come as \'sort_key\'=>SORT_ASC|SORT_DESC or just 'sort_key', so need to detect which
             if (!in_array($sub_asc, $sort_flags))
             {
               $sub_key = $sub_asc;
               $sub_asc = $asc;
             }
-            //just like above, except 'continue' in place of return 0
+            //just like above, except \'continue\' in place of return 0
             if (!isset($a[$sub_key]) || !isset($b[$sub_key]))
             {
-              throw new Exception('attempting to sort on non-existent keys');
+              throw new Exception(\'attempting to sort on non-existent keys\');
             }
             if ($a[$sub_key] == $b[$sub_key])
               continue;
@@ -106,7 +105,7 @@ class noutrace
           }
           return 0;
         }
-      };
+      ');
     usort($array, $cmp);
   }
 
@@ -378,6 +377,7 @@ class noutrace
 
             for ($jI = 11; $jI <= 10 + $jData[10]; $jI++)
             {
+              $jData[$jI]=str_replace('<!--', '&lt;!--', $jData[$jI]); //The Fix for situation: if appeared tag "<!--" in the values of variables then it comments out the remains of result output. That was unexpected.
               echo "<li class=\"parm\">{$jData[$jI]}</li>";
             }
             echo "</ul>";
